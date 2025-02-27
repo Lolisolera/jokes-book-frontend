@@ -4,10 +4,61 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>jokes-book</title>
+  
   </head>
+
   <body>
-    <div id="app"></div>
+    <header class="header">
+      <h1 class="header__title">Jokes Book</h1>
+    </header>
+    
+      
+      <main class="jokes">
+              <section class="jokes__highlight">
+                  <h2 class="jokes__highlight-title">Joke of the Week</h2>
+                  <div class="jokes__highlight-box">
+                      <p class="jokes__highlight-text">Why do programmers prefer dark mode? Because light attracts bugs!</p>
+                  </div>
+              </section>
+      
+              <section class="jokes__search">
+                  <h2 class="jokes__search-title">Find a Joke</h2>
+                  <form class="jokes__form">
+                      <input type="text" class="jokes__input" placeholder="Search for a joke..." aria-label="Joke Search">
+                      
+                      <div class="jokes__filters">
+                          <select class="jokes__select jokes__select--category">
+                              <option value="">Select Category</option>
+                              <option value="futuristic">Futuristic</option>
+                              <option value="geek">Geek</option>
+                              <option value="dark">Dark</option>
+                          
+                          </select>
+      
+                          <select class="jokes__select jokes__select--author">
+                              <option value="">Select Author</option>
+                              <option value="geekmaster">Geek Master</option>
+                              <option value="nerdwizard">Nerd Wizard</option>
+                              <option value="codeguru">Code Guru</option>
+                              <option value="quantumjoker">Quantum Joker</option>
+                          </select>
+      
+                          <select class="jokes__select jokes__select--tag">
+                              <option value="">Select Tag</option>
+                              <option value="debugging">Debugging</option>
+                              <option value="errors">Errors</option>
+                              <option value="tech">Tech</option>
+                              <option value="sci-fi">Sci-Fi</option>
+                          </select>
+                      </div>
+      
+                      <button type="submit" class="jokes__search-button">Search</button>
+                  </form>
+              </section>
+      </main>
+
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

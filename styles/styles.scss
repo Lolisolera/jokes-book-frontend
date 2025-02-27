@@ -1,0 +1,107 @@
+// Base styles
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+// Header
+.header {
+  
+  color:  #222;
+  padding: 1rem;
+
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+  }
+}
+
+// Main Jokes Section
+.jokes {
+  max-width: 800px;
+  margin: 2rem auto;
+  margin-top: 10rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  &__highlight {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    &-title {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    &-box {
+      background-color: #e8f5e9;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-size: 1.2rem;
+      color: #2e7d32;
+    }
+  }
+
+  &__search {
+    text-align: center;
+
+    &-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__input {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  &__filters {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__select {
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+
+    &--category,
+    &--author,
+    &--tag {
+      flex: 1;
+    }
+  }
+
+  &__search-button {
+    padding: 0.8rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
