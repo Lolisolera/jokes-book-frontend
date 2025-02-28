@@ -1,69 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jokes Book</title>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jokes Book</title>
+    </head>
 
-  <body>
-    <header class="header">
-      <h1 class="header__title">Jokes Book</h1>
-    </header>
-    
-    <main class="jokes">
-      <!-- Joke of the Day -->
-      <section class="jokes__highlight">
-        <h2 class="jokes__highlight-title">Joke of the Day</h2>
-        <div class="jokes__highlight-box">
-          <p class="jokes__highlight-text">Loading...</p>
-        </div>
-      </section>
+    <body>
+        <header class="header">
+            <h1 class="header__title">Jokes Book</h1>
+        </header>
 
-      <!-- Search and Filter Jokes -->
-      <section class="jokes__search">
-        <h2 class="jokes__search-title">Find a Joke</h2>
-        
-        <div class="jokes__filters">
-          <select class="jokes__select jokes__select--category">
-            <option value="">Select Category</option>
-            <option value="all">Select all</option>
-            <option value="futuristic">Futuristic</option>
-            <option value="geek">Geek</option>
-            <option value="dark">Dark</option>
-          </select>
-        </div>
+        <main class="jokes">
+            <!-- Joke of the Day -->
+            <section class="jokes__highlight">
+                <h2 class="jokes__highlight-title">Joke of the Day</h2>
+                <div class="jokes__highlight-box">
+                    <p class="jokes__highlight-text">Loading...</p>
+                </div>
+            </section>
 
-        <button class="jokes__search-button">Search</button>
-      </section>
+            <!-- Search and Filter Jokes -->
+            <section class="jokes__search">
+                <h2 class="jokes__search-title">Find a Joke</h2>
 
-      <!-- Add a New Joke -->
-      <section class="jokes__add">
-        <h2 class="jokes__add-title">Add a New Joke</h2>
-        <p class="jokes__prompt">Please enter a new joke:</p>
-        <form class="jokes__form jokes__form--add">
-          <input type="text" class="jokes__input jokes__input--new" placeholder="Enter a new joke..." required>
-          <input type="text" class="jokes__input jokes__input--category" placeholder="Enter category..." required>
-          <input type="text" class="jokes__input jokes__input--author" placeholder="Enter author..." required>
-          <input type="text" class="jokes__input jokes__input--tag" placeholder="Enter tag..." required>
-          <button type="submit" class="jokes__button jokes__button--add">Submit Joke</button>
-        </form>
-      </section>
+                <div class="jokes__filters">
+                    <select
+                        id="dropdown"
+                        class="jokes__select jokes__select--category"
+                    >
+                        <!-- <option value="">Select Category</option> -->
+                        <option value="all">Select all</option>
+                        <option value="futuristic">Futuristic</option>
+                        <option value="geek">Geek</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
 
-      <!-- Delete Jokes -->
-      <section class="jokes__delete">
-        <h2 class="jokes__delete-title">Delete a Joke</h2>
-        <p class="jokes__prompt">Please enter a joke ID to delete:</p>
-        <form class="jokes__form jokes__form--delete">
-          <input type="text" class="jokes__input jokes__input--delete-id" placeholder="Enter joke ID to delete">
-          <button type="submit" class="jokes__button jokes__button--delete">Delete Joke</button>
-        </form>
-        <p class="jokes__prompt">Are you sure you want to delete all jokes?</p>
-        <button class="jokes__button jokes__button--delete-all">Delete All Jokes</button>
-      </section>
-    </main>
+                <button id="searchBtn" class="jokes__search-button">
+                    Search
+                </button>
+                <ul id="jokesList"></ul>
+            </section>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+            <!-- Add a New Joke -->
+            <section class="jokes__add">
+                <h2 class="jokes__add-title">Add a New Joke</h2>
+                <p class="jokes__prompt">Please enter a new joke:</p>
+                <form class="jokes__form jokes__form--add">
+                    <input
+                        type="text"
+                        class="jokes__input jokes__input--new"
+                        placeholder="Enter a new joke..."
+                        required
+                    />
+                    <input
+                        type="text"
+                        class="jokes__input jokes__input--category"
+                        placeholder="Enter category..."
+                        required
+                    />
+                    <input
+                        type="text"
+                        class="jokes__input jokes__input--author"
+                        placeholder="Enter author..."
+                        required
+                    />
+                    <input
+                        type="text"
+                        class="jokes__input jokes__input--tag"
+                        placeholder="Enter tag..."
+                        required
+                    />
+                    <button
+                        type="submit"
+                        class="jokes__button jokes__button--add"
+                    >
+                        Submit Joke
+                    </button>
+                </form>
+            </section>
+
+            <!-- Delete Jokes -->
+            <section class="jokes__delete">
+                <h2 class="jokes__delete-title">Delete a Joke</h2>
+                <p class="jokes__prompt">Please enter a joke ID to delete:</p>
+                <form class="jokes__form jokes__form--delete">
+                    <input
+                        type="text"
+                        class="jokes__input jokes__input--delete-id"
+                        placeholder="Enter joke ID to delete"
+                    />
+                    <button
+                        type="submit"
+                        class="jokes__button jokes__button--delete"
+                    >
+                        Delete Joke
+                    </button>
+                </form>
+                <p class="jokes__prompt">
+                    Are you sure you want to delete all jokes?
+                </p>
+                <button class="jokes__button jokes__button--delete-all">
+                    Delete All Jokes
+                </button>
+            </section>
+        </main>
+
+        <script type="module" src="/src/main.ts"></script>
+    </body>
 </html>
