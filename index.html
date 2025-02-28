@@ -86,21 +86,24 @@
             <section class="jokes__delete">
                 <h2 class="jokes__delete-title">Delete a Joke</h2>
                 <p class="jokes__prompt">Please enter a joke ID to delete:</p>
-                <form class="jokes__form jokes__form--delete">
+                <form
+                    id="delete-joke-form"
+                    class="jokes__form jokes__form--delete"
+                >
                     <input
                         type="text"
+                        id="delete-joke-id-input"
                         class="jokes__input jokes__input--delete-id"
                         placeholder="Enter joke ID to delete"
                     />
                     <button
                         type="submit"
                         class="jokes__button jokes__button--delete"
+                        id="jokes__button--delete"
                     >
                         Delete Joke
                     </button>
                 </form>
-              
-               
             </section>
         </main>
 
