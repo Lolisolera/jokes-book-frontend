@@ -13,7 +13,8 @@ const getAllJokes = async () => {
         `https://definite-deloris-cogger101-14d80470.koyeb.app/api/jokes`
     );
     const allJokesData = await result.json();
-    // console.log("running", allJokesData);
+    console.log("running", allJokesData);
+    return allJokesData;
 };
 
 const getJokesDataByCategory = async (category: String) => {
@@ -21,27 +22,20 @@ const getJokesDataByCategory = async (category: String) => {
         `https://definite-deloris-cogger101-14d80470.koyeb.app/api/jokes/search/cat?category=${category}`
     );
     const data = await result.json();
-    // console.log("all category data =>>>", data);
-    jokesList.innerText = `${data.jokes}`;
-    data.forEach();
+    return data;
 };
 
-const handleSearch = (event: Event, category: String) => {
-    event.preventDefault();
+const handleSearch = async (event: Event, category: String) => {
     console.log("Button clicked");
+    event.preventDefault();
     // getJokesDataByCategory(category);
     switch (catOption) {
         case "futuristic":
-            getJokesDataByCategory(category);
-            break;
         case "dark":
-            getJokesDataByCategory(category);
-            break;
         case "geek":
-            getJokesDataByCategory(category);
-            break;
+            return await getJokesDataByCategory(category);
         default:
-            getAllJokes();
+            return await getAllJokes();
     }
 };
 let catOption: string = "Select all";
@@ -52,10 +46,22 @@ dropdown.addEventListener("change", (event: Event) => {
     console.log(catOption);
 });
 
-document.getElementById("searchBtn")?.addEventListener("click", (event) => {
-    // swtich that will decide what string to feed the handleSearch
-    // function dpeending on the option selected in the dropdown
+document
+    .getElementById("searchBtn")
+    ?.addEventListener("click", async (event) => {
+        jokesList.innerHTML = "";
+        // swtich that will decide what string to feed the handleSearch
+        // function dpeending on the option selected in the dropdown
 
-    // add control flow to decide which api call to do
-    handleSearch(event, catOption);
-});
+        // add control flow to decide which api call to do
+        const jokes = await handleSearch(event, catOption);
+        jokes.forEach((joke) => {
+            const jokePara = document.createElement("li");
+            jokePara.appendChild(document.createTextNode(`${joke.joke}`));
+
+            jokesList.appendChild(jokePara);
+        });
+    });
+// console.log("all category data =>>>", data);
+// jokesList.innerText = `${data.jokes}`;
+// data.forEach(joke);
