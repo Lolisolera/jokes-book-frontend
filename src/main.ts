@@ -74,8 +74,18 @@ const deleteJoke = async (id: string): Promise<DeleteJokeResponse> => {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = (await response.json()) as DeleteJokeResponse;
-        return data;
+        // trying to get the response as text
+        const responseText = await response.text();
+        console.log('Raw delete response:', responseText);
+
+        // const data = (await response.json()) as DeleteJokeResponse;
+        // return data;
+
+        // returning as an object
+        return {
+            message: responseText,
+            success: true,
+        };
     } catch (error) {
         console.error('Error deleting joke:', error);
         return {
