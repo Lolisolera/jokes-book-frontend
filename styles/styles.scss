@@ -1,10 +1,25 @@
 // Base styles
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: "Orbitron", sans-serif;
+    background-color: #22177A;
     margin: 0;
     padding: 0;
 }
+
+.orbitron-regular {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400; 
+    font-style: normal;
+}
+
+.orbitron-bold {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700; 
+    font-style: normal;
+}
+
 
 // Header
 .header {
@@ -24,9 +39,45 @@ body {
     margin: 2rem auto;
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #fff;
+    background-color: #F6DC43;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; // For background animations
+
+    // Animated Background
+    &__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none; // Prevents emoji clicks
+        z-index: 0;
+    }
+
+    &__emoji {
+        position: absolute;
+        font-size: 5.5rem;
+        animation: float 10s linear infinite;
+
+        &:nth-child(odd) {
+            animation-duration: 12s;
+        }
+
+        &:nth-child(even) {
+            animation-duration: 10s;
+        }
+    }
+
+    @keyframes float {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(100vh);
+        }
+    }
 
     &__highlight {
         text-align: center;
@@ -44,6 +95,8 @@ body {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             font-size: 1.2rem;
             color: #2e7d32;
+            position: relative; // Keep text on top of background
+            z-index: 1;
         }
     }
 
@@ -128,6 +181,4 @@ body {
             }
         }
     }
-
-   
 }
