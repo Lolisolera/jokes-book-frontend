@@ -124,5 +124,54 @@ document.getElementById('delete-joke-form')?.addEventListener('submit', async (e
 	if (result.success) deleteInput.value = '';
 });
 
+// ➕ ADD JOKE form handler
+document.querySelector('.jokes__form--add')?.addEventListener('submit', async (event) => {
+	event.preventDefault();
+
+	const jokeInput = document.querySelector('.jokes__input--new') as HTMLInputElement;
+	const categoryInput = document.querySelector('.jokes__input--category') as HTMLInputElement;
+	const authorInput = document.querySelector('.jokes__input--author') as HTMLInputElement;
+	const tagInput = document.querySelector('.jokes__input--tag') as HTMLInputElement;
+
+	const newJoke: Joke = {
+		joke: jokeInput.value.trim(),
+		category: categoryInput.value.trim(),
+		author: authorInput.value.trim(),
+		tag: tagInput.value.trim(),
+		rating: 0
+	};
+
+	if (!newJoke.joke || !newJoke.category || !newJoke.author || !newJoke.tag) {
+		alert('Please fill in all fields!');
+		return;
+	}
+
+	try {
+		const response = await fetch(`${baseUrl}/api/jokes`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(newJoke)
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to add joke: ${response.status}`);
+		}
+
+		alert('Joke added successfully!');
+
+		// Clear form
+		jokeInput.value = '';
+		categoryInput.value = '';
+		authorInput.value = '';
+		tagInput.value = '';
+
+	} catch (error) {
+		console.error('Error adding joke:', error);
+		alert('There was a problem adding your joke.');
+	}
+});
+
 // On load
 document.addEventListener('DOMContentLoaded', fetchJokeOfTheDay);
