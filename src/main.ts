@@ -4,6 +4,9 @@ interface Joke {
 	id?: string;
 	joke: string;
 	category?: string;
+	author?: string;
+	tag?: string;
+	rating?: number;
 }
 
 interface JokeOfTheDayResponse {
@@ -22,117 +25,104 @@ if (!jokesList) {
 	throw new Error("Can't find jokesList");
 }
 
+// Fetch joke of the day
 const fetchJokeOfTheDay = async (): Promise<void> => {
 	const jokeOfTheDay = document.getElementById('jokeOfTheDay');
 	if (!jokeOfTheDay) return;
 
 	try {
 		const response = await fetch(`${baseUrl}/api/jokes/joke-of-the-day`);
-		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
+		const contentType = response.headers.get("content-type");
+
+		if (!response.ok || !contentType?.includes("application/json")) {
+			throw new Error("Invalid response");
 		}
 
 		const data = (await response.json()) as JokeOfTheDayResponse;
-		const jokeText = data.joke.joke;
-		jokeOfTheDay.textContent = `${jokeText}`;
+		jokeOfTheDay.textContent = data.joke.joke;
 	} catch (error) {
 		jokeOfTheDay.textContent = 'Joke unavailable.';
-		console.error('Error fetching joke:', error);
+		console.error('Error fetching joke of the day:', error);
 	}
 };
 
+// Get all jokes
 const getAllJokes = async () => {
-	const result = await fetch(`${baseUrl}/api/jokes`);
-	const allJokesData = await result.json();
-	console.log('running', allJokesData);
-	return allJokesData;
+	const response = await fetch(`${baseUrl}/api/jokes`);
+	return await response.json();
 };
 
-const getJokesDataByCategory = async (category: String) => {
-	const result = await fetch(`${baseUrl}/api/jokes/search/cat?category=${category}`);
-	const data = await result.json();
-	return data;
+// Get jokes by category
+const getJokesDataByCategory = async (category: string) => {
+	const response = await fetch(`${baseUrl}/api/jokes/search/cat?category=${category}`);
+	return await response.json();
 };
 
+// Delete a joke
 const deleteJoke = async (id: string): Promise<DeleteJokeResponse> => {
 	try {
-		const response = await fetch(`${baseUrl}/api/jokes/${id}`, {
-			method: 'DELETE',
-		});
+		const response = await fetch(`${baseUrl}/api/jokes/${id}`, { method: 'DELETE' });
 
-		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
-		}
-
-		const responseText = await response.text();
-		console.log('Raw delete response:', responseText);
-
+		const message = await response.text();
 		return {
-			message: responseText,
-			success: true,
+			message,
+			success: response.ok,
 		};
 	} catch (error) {
-		console.error('Error deleting joke:', error);
 		return {
-			message: error instanceof Error ? error.message : 'There is an error with deleting the joke',
+			message: error instanceof Error ? error.message : 'Unknown error',
 			success: false,
 		};
 	}
 };
 
-const handleSearch = async (event: Event, category: String) => {
-	console.log('Button clicked');
+// Search functionality
+const handleSearch = async (event: Event) => {
 	event.preventDefault();
-	switch (catOption) {
-		case 'futuristic':
-		case 'dark':
-		case 'geek':
-			return await getJokesDataByCategory(category);
-		default:
-			return await getAllJokes();
+	jokesList.innerHTML = '';
+
+	let jokes: Joke[] = [];
+
+	if (catOption === 'all') {
+		jokes = await getAllJokes();
+	} else {
+		jokes = await getJokesDataByCategory(catOption);
 	}
+
+	jokes.forEach((joke: Joke) => {
+		const jokeItem = document.createElement('li');
+		jokeItem.textContent = joke.joke;
+		jokesList.appendChild(jokeItem);
+	});
 };
 
-let catOption: string = 'Select all';
+// Dropdown
+let catOption = 'all';
 const dropdown = document.getElementById('dropdown') as HTMLSelectElement;
-dropdown.addEventListener('change', (event: Event) => {
-	const select = event?.target as HTMLSelectElement;
-	catOption = select.value;
-	console.log(catOption);
+dropdown.addEventListener('change', (event) => {
+	const selected = (event.target as HTMLSelectElement).value;
+	catOption = selected;
 });
 
-document.getElementById('searchBtn')?.addEventListener('click', async (event) => {
-	jokesList.innerHTML = '';
-	const jokes = await handleSearch(event, catOption);
-	jokes.forEach((joke: Joke) => {
-		const jokePara = document.createElement('li');
-		jokePara.appendChild(document.createTextNode(`${joke.joke}`));
-		jokesList.appendChild(jokePara);
-	});
-});
+// Search button
+document.getElementById('searchBtn')?.addEventListener('click', handleSearch);
 
+// Delete form
 document.getElementById('delete-joke-form')?.addEventListener('submit', async (event) => {
 	event.preventDefault();
-	console.log('Delete form submitted');
 
-	const deleteIdInput = document.getElementById('delete-joke-id-input') as HTMLInputElement;
-	const jokeId = deleteIdInput.value.trim();
-	console.log('Joke ID to delete:', jokeId);
+	const deleteInput = document.getElementById('delete-joke-id-input') as HTMLInputElement;
+	const jokeId = deleteInput.value.trim();
 
 	if (!jokeId) {
-		alert('Please enter a joke ID to delete');
+		alert('Please enter a joke ID');
 		return;
 	}
 
 	const result = await deleteJoke(jokeId);
-	console.log('Delete result:', result);
-
-	if (result.success) {
-		alert(`Success: ${result.message}`);
-		deleteIdInput.value = '';
-	} else {
-		alert(`Error: ${result.message}`);
-	}
+	alert(result.success ? `Deleted: ${result.message}` : `Error: ${result.message}`);
+	if (result.success) deleteInput.value = '';
 });
 
+// On load
 document.addEventListener('DOMContentLoaded', fetchJokeOfTheDay);
