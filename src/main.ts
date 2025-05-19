@@ -96,11 +96,13 @@ const handleSearch = async (event: Event) => {
 		jokes = await getJokesDataByCategory(catOption);
 	}
 
-	jokes.forEach((joke: Joke) => {
-		const jokeItem = document.createElement('li');
-		jokeItem.textContent = joke.joke;
-		jokesList.appendChild(jokeItem);
-	});
+jokes.forEach((joke: Joke) => {
+	const jokeItem = document.createElement('li');
+	const idText = joke.id ? `[ID: ${joke.id}] ` : '';
+	jokeItem.textContent = `${idText}${joke.joke}`;
+	jokesList.appendChild(jokeItem);
+});
+
 };
 
 // Dropdown
