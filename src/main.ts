@@ -25,7 +25,7 @@ if (!jokesList) {
 	throw new Error("Can't find jokesList");
 }
 
-// Fetch joke of the day
+// Fetch Joke of the Day
 const fetchJokeOfTheDay = async (): Promise<void> => {
 	const jokeOfTheDay = document.getElementById('jokeOfTheDay');
 	if (!jokeOfTheDay) return;
@@ -34,25 +34,32 @@ const fetchJokeOfTheDay = async (): Promise<void> => {
 		const response = await fetch(`${baseUrl}/api/jokes/joke-of-the-day`);
 		const contentType = response.headers.get("content-type");
 
+		console.log("Joke of the Day response status:", response.status);
+
 		if (!response.ok || !contentType?.includes("application/json")) {
-			throw new Error("Invalid response");
+			throw new Error("Invalid Joke of the Day response");
 		}
 
 		const data = (await response.json()) as JokeOfTheDayResponse;
-		jokeOfTheDay.textContent = data.joke.joke;
+		console.log(" Joke of the Day data:", data);
+
+		// Graceful fallback if joke is missing
+		const jokeText = data?.joke?.joke || 'Joke unavailable.';
+		jokeOfTheDay.textContent = jokeText;
+
 	} catch (error) {
 		jokeOfTheDay.textContent = 'Joke unavailable.';
-		console.error('Error fetching joke of the day:', error);
+		console.error(' Error fetching joke of the day:', error);
 	}
 };
 
-// Get all jokes
+//  Get all jokes
 const getAllJokes = async () => {
 	const response = await fetch(`${baseUrl}/api/jokes`);
 	return await response.json();
 };
 
-// Get jokes by category
+//  Get jokes by category
 const getJokesDataByCategory = async (category: string) => {
 	const response = await fetch(`${baseUrl}/api/jokes/search/cat?category=${category}`);
 	return await response.json();
@@ -107,7 +114,7 @@ dropdown.addEventListener('change', (event) => {
 // Search button
 document.getElementById('searchBtn')?.addEventListener('click', handleSearch);
 
-// Delete form
+// Delete joke form
 document.getElementById('delete-joke-form')?.addEventListener('submit', async (event) => {
 	event.preventDefault();
 
@@ -124,7 +131,7 @@ document.getElementById('delete-joke-form')?.addEventListener('submit', async (e
 	if (result.success) deleteInput.value = '';
 });
 
-// ➕ ADD JOKE form handler
+// Add joke form
 document.querySelector('.jokes__form--add')?.addEventListener('submit', async (event) => {
 	event.preventDefault();
 
@@ -173,5 +180,5 @@ document.querySelector('.jokes__form--add')?.addEventListener('submit', async (e
 	}
 });
 
-// On load
+// On page load
 document.addEventListener('DOMContentLoaded', fetchJokeOfTheDay);
