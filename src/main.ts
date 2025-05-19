@@ -96,11 +96,13 @@ const handleSearch = async (event: Event) => {
 		jokes = await getJokesDataByCategory(catOption);
 	}
 
-jokes.forEach((joke: Joke, index: number) => {
-	const jokeItem = document.createElement('p'); 
-	jokeItem.textContent = `${index + 1}. ${joke.joke}`;
+jokes.forEach((joke: Joke) => {
+	const jokeItem = document.createElement('p');
+	const jokeId = joke.id ? joke.id : '??';
+	jokeItem.textContent = `${jokeId}. ${joke.joke}`;
 	jokesList.appendChild(jokeItem);
 });
+
 
 
 };
