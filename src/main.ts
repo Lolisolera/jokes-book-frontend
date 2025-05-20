@@ -34,32 +34,26 @@ const fetchJokeOfTheDay = async (): Promise<void> => {
 		const response = await fetch(`${baseUrl}/api/jokes/joke-of-the-day`);
 		const contentType = response.headers.get("content-type");
 
-		console.log("Joke of the Day response status:", response.status);
-
 		if (!response.ok || !contentType?.includes("application/json")) {
-			throw new Error("Invalid Joke of the Day response");
+			throw new Error("Invalid response");
 		}
 
 		const data = (await response.json()) as JokeOfTheDayResponse;
-		console.log(" Joke of the Day data:", data);
-
-		// Graceful fallback if joke is missing
 		const jokeText = data?.joke?.joke || 'Joke unavailable.';
 		jokeOfTheDay.textContent = jokeText;
-
 	} catch (error) {
 		jokeOfTheDay.textContent = 'Joke unavailable.';
-		console.error(' Error fetching joke of the day:', error);
+		console.error('Error fetching joke of the day:', error);
 	}
 };
 
-//  Get all jokes
+// Get all jokes
 const getAllJokes = async () => {
 	const response = await fetch(`${baseUrl}/api/jokes`);
 	return await response.json();
 };
 
-//  Get jokes by category
+// Get jokes by category
 const getJokesDataByCategory = async (category: string) => {
 	const response = await fetch(`${baseUrl}/api/jokes/search/cat?category=${category}`);
 	return await response.json();
@@ -83,7 +77,7 @@ const deleteJoke = async (id: string): Promise<DeleteJokeResponse> => {
 	}
 };
 
-// Search functionality
+// Hybrid Search: Show 1 joke preview, then reveal full list
 const handleSearch = async (event: Event) => {
 	event.preventDefault();
 	jokesList.innerHTML = '';
@@ -96,15 +90,36 @@ const handleSearch = async (event: Event) => {
 		jokes = await getJokesDataByCategory(catOption);
 	}
 
-jokes.forEach((joke: Joke) => {
-	const jokeItem = document.createElement('p');
-	const jokeId = joke.id ? joke.id : '??';
-	jokeItem.textContent = `${jokeId}. ${joke.joke}`;
-	jokesList.appendChild(jokeItem);
-});
+	if (jokes.length === 0) {
+		jokesList.textContent = "No jokes found in this category.";
+		return;
+	}
 
+	// Show ONE random joke first
+	const randomIndex = Math.floor(Math.random() * jokes.length);
+	const randomJoke = jokes[randomIndex];
+	const jokePreview = document.createElement('p');
+	const jokeId = randomJoke.id ?? '?';
+	jokePreview.textContent = `${jokeId}. ${randomJoke.joke}`;
+	jokesList.appendChild(jokePreview);
 
+	// Show More button
+	const showMoreBtn = document.createElement('button');
+	showMoreBtn.textContent = "Show more jokes";
+	showMoreBtn.style.marginTop = "1rem";
+	showMoreBtn.className = "btn btn--show-more";
+	jokesList.appendChild(showMoreBtn);
 
+	// Show full list when button is clicked
+	showMoreBtn.addEventListener('click', () => {
+		jokesList.innerHTML = '';
+		jokes.forEach((joke: Joke) => {
+			const jokeItem = document.createElement('p');
+			const realId = joke.id ?? '?';
+			jokeItem.textContent = `${realId}. ${joke.joke}`;
+			jokesList.appendChild(jokeItem);
+		});
+	});
 };
 
 // Dropdown
