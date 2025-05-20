@@ -146,6 +146,20 @@ body {
         background-color: #fff;
     }
 
+
+    select.jokes__input--category {
+        padding: 0.8rem;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 400px;
+        height: 45.59px;
+        font-family: sans-serif;
+        font-size: 1rem;
+        color: #333;
+        background-color: #fff;
+    }
+
     &__filters {
         display: flex;
         justify-content: space-between;
@@ -157,12 +171,6 @@ body {
         border-radius: 4px;
         border: 1px solid #fff;
         width: 100%;
-        max-width: 400px;
-        height: 45.59px;
-        font-family: sans-serif;
-        font-size: 1rem;
-        color: #333;
-        background-color: #fff;
     }
 
     &__search-button {
