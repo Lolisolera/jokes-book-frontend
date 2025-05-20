@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-//Fonts
+// Fonts
 .orbitron-regular {
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
@@ -33,7 +33,7 @@ body {
     }
 }
 
-//Jokes List
+// Jokes List
 #jokesList {
     list-style: none;
     padding: 0;
@@ -133,8 +133,8 @@ body {
         }
     }
 
-    &__input,
-    &__input--category {
+    // Shared input style for text fields and select
+    &__input {
         padding: 0.8rem;
         border: 1px solid #fff;
         border-radius: 4px;
@@ -144,18 +144,14 @@ body {
         font-size: 1rem;
         color: #333;
         background-color: #fff;
+        box-sizing: border-box;
     }
 
-    select.jokes__input--category {
-        padding: 0.8rem;
-        border: 1px solid #fff;
-        border-radius: 4px;
-        width: 427.59px;
-        height: 45.59px;
-        font-family: sans-serif;
-        font-size: 1rem;
-        color: #333;
-        background-color: #fff;
+    // Make sure <select> behaves like input
+    select.jokes__input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
     }
 
     &__filters {
@@ -209,3 +205,4 @@ body {
         }
     }
 }
+
