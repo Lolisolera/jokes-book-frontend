@@ -6,18 +6,18 @@ body {
     padding: 0;
 }
 
-// Fonts
+//Fonts
 .orbitron-regular {
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: 400; 
     font-style: normal;
 }
 
 .orbitron-bold {
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 700;
+    font-weight: 700; 
     font-style: normal;
 }
 
@@ -33,15 +33,15 @@ body {
     }
 }
 
-// Jokes List
+//Jokes List
 #jokesList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 
-    p {
-        margin: 0.5rem 0;
-    }
+	p {
+		margin: 0.5rem 0;
+	}
 }
 
 // Main Jokes Section
@@ -53,7 +53,7 @@ body {
     background-color: #F6DC43;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative; // For background animations
+    position: relative;
 
     // Animated Background
     &__background {
@@ -141,7 +141,6 @@ body {
         max-width: 400px;
     }
 
-    // New category dropdown style
     &__input--category {
         padding: 0.8rem;
         border: 1px solid #fff;
@@ -152,12 +151,6 @@ body {
         font-size: 1rem;
         background-color: #fff;
         color: #333;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 140,0 70,80' fill='%23333'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 0.65rem;
-        cursor: pointer;
     }
 
     &__filters {
