@@ -12,6 +12,15 @@ Try the app live with no setup required:
 
 ---
 
+## 🧠 Backend Repository
+
+This frontend connects to a backend API available at:
+
+🔗 [jokes-book](https://github.com/Lolisolera/jokes-book)
+
+---
+
+
 ## 💡 Features
 
 ### 🖥️ Frontend
