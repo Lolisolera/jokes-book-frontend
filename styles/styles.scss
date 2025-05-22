@@ -47,15 +47,13 @@ body {
 // Main Jokes Section
 .jokes {
     max-width: 800px;
-    margin: 2rem auto;
-    margin-top: 1rem;
+    margin: 2rem auto 1rem auto;
     padding: 1rem;
     background-color: #F6DC43;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
 
-    // Animated Background
     &__background {
         position: absolute;
         width: 100%;
@@ -70,22 +68,13 @@ body {
         font-size: 8rem;
         animation: float 10s linear infinite;
 
-        &:nth-child(odd) {
-            animation-duration: 12s;
-        }
-
-        &:nth-child(even) {
-            animation-duration: 10s;
-        }
+        &:nth-child(odd) { animation-duration: 12s; }
+        &:nth-child(even) { animation-duration: 10s; }
     }
 
     @keyframes float {
-        from {
-            transform: translateY(-100%);
-        }
-        to {
-            transform: translateY(100vh);
-        }
+        from { transform: translateY(-100%); }
+        to   { transform: translateY(100vh); }
     }
 
     &__highlight {
@@ -209,11 +198,11 @@ body {
 // Mobile fixes
 @media (max-width: 600px) {
     .jokes {
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.75rem;
     }
 
     .jokes__form {
-        padding: 0 0.5rem;
+        padding: 0 1rem;
 
         input,
         select {
