@@ -116,7 +116,7 @@ body {
         flex-direction: column;
         gap: 1rem;
         width: 100%;
-        padding: 0 1rem;
+        padding: 0 1.5rem; 
 
         &--add,
         &--delete {
@@ -195,14 +195,14 @@ body {
     }
 }
 
-// Mobile fixes
+// Mobile view
 @media (max-width: 600px) {
     .jokes {
-        padding: 1rem 0.75rem;
+        padding: 1rem 1.25rem; 
     }
 
     .jokes__form {
-        padding: 0 1rem;
+        padding: 0 1.25rem; 
 
         input,
         select {
